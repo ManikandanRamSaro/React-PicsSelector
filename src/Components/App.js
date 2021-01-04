@@ -1,22 +1,20 @@
 import React from 'react';
-import axios from 'axios';
+import unsplash from '../Api/unsplashaxios'
 import SearchBar from './SearchBar'
 
 class App extends React.Component{
 
-    async onSearchSubmit(search)
-    {
-        console.log(search,'getting value form child component');
-       const output = await axios.get('https://api.unsplash.com/search/photos',{
+    state ={ images:[] }
+    // below line is also one of the way to perform arrow function with the method
+    onSearchSubmit = async searchKey =>  {
+        //console.log(searchKey,'getting value form child component');  // async and await -> getting response from api and parse the api output into simpler form without using then() 
+       const output = await unsplash.get('/search/photos',{
             params:{
-                query:search
-            },
-            headers:{
-                Authorization: 'Client-ID PBGi7Q5g1Ar9-XfoWiPp6i9sy9Jbxp0BKQaIt82dl1w'
+                query:searchKey
             }
         });
 
-        console.log(output.data.results);
+        this.setState({images:output.data.results}) 
     }
     render()
     {
@@ -24,6 +22,8 @@ class App extends React.Component{
             <div>
                 <div className="ui container" style={{marginTop:'10px'}}>
                         <SearchBar onSubmitting={this.onSearchSubmit}/>
+                        <hr/>
+                        Images Found : {this.state.images.length}
                     </div>
             </div>
         );
