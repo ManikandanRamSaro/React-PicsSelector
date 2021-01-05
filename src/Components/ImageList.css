@@ -1,0 +1,10 @@
+.image-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+    grid-gap: 0 10px; /* specify gaps b/w each row 0 mention no gap and 10 for end of element*/
+    grid-auto-rows: 10px;
+}
+
+.image-list img{
+    width: 250px;
+}
